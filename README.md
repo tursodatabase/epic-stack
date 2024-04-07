@@ -1,54 +1,58 @@
-<div align="center">
-  <h1 align="center"><a href="https://www.epicweb.dev/epic-stack">The Epic Stack 🚀</a></h1>
-  <strong align="center">
-    Ditch analysis paralysis and start shipping Epic Web apps.
-  </strong>
-  <p>
-    This is an opinionated project starter and reference that allows teams to
-    ship their ideas to production faster and on a more stable foundation based
-    on the experience of <a href="https://kentcdodds.com">Kent C. Dodds</a> and
-    <a href="https://github.com/epicweb-dev/epic-stack/graphs/contributors">contributors</a>.
-  </p>
-</div>
+<img alt="Turso Logo" src="https://github.com/tursodatabase/.github/raw/main/profile/turso-banner.png" width="1000">
 
-```sh
-npx create-epic-app@latest
+# Epic Stack with Turso
+
+
+This is an example of how to integrate [Turso](https://turso.tech/) database with the Epic Stack.
+
+## Create a Turso Database
+
+Create a database called `epic-stack-example`:
+
+```
+turso db create epic-stack-example
 ```
 
-[![The Epic Stack](https://github-production-user-asset-6210df.s3.amazonaws.com/1500684/246885449-1b00286c-aa3d-44b2-9ef2-04f694eb3592.png)](https://www.epicweb.dev/epic-stack)
+## Set Environment Variables
+You need to add the database url and access token as environment variables:
 
-[The Epic Stack](https://www.epicweb.dev/epic-stack)
+```
+TURSO_DATABASE_URL=
+TURSO_AUTH_TOKEN=
+```
 
-<hr />
+You can get both on the [web app](https://turso.tech/app/databases) or using the [Turso CLI](https://docs.turso.tech/cli/introduction).
 
-## Watch Kent's Introduction to The Epic Stack
+To get the URL of your database using the CLI, run the command below and set the result to `TURSO_DATABASE_URL`:
 
-[![Epic Stack Talk slide showing Flynn Rider with knives, the text "I've been around and I've got opinions" and Kent speaking in the corner](https://github-production-user-asset-6210df.s3.amazonaws.com/1500684/277818553-47158e68-4efc-43ae-a477-9d1670d4217d.png)](https://www.epicweb.dev/talks/the-epic-stack)
+```
+turso db show epic-stack-example --url
+```
 
-["The Epic Stack" by Kent C. Dodds](https://www.epicweb.dev/talks/the-epic-stack)
+In the same way, get a database token and set its value to `TURSO_AUTH_TOKEN` by running the command below:
 
-## Docs
+```
+turso db tokens create epic-stack-example
+```
 
-[Read the docs](https://github.com/epicweb-dev/epic-stack/blob/main/docs)
-(please 🙏).
+## Seed Your Database
 
-## Support
+Seed your database with this command:
 
-- 🆘 Join the
-  [discussion on GitHub](https://github.com/epicweb-dev/epic-stack/discussions)
-  and the [KCD Community on Discord](https://kcd.im/discord).
-- 💡 Create an
-  [idea discussion](https://github.com/epicweb-dev/epic-stack/discussions/new?category=ideas)
-  for suggestions.
-- 🐛 Open a [GitHub issue](https://github.com/epicweb-dev/epic-stack/issues) to
-  report a bug.
+```
+turso db shell epic-stack-example < prisma/migrations/20230914194400_init/migration.sql
+```
 
-## Branding
+## Migrations
 
-Want to talk about the Epic Stack in a blog post or talk? Great! Here are some
-assets you can use in your material:
-[EpicWeb.dev/brand](https://epicweb.dev/brand)
+To apply migrations to your database, run the `migrate` command:
 
-## Thanks
+```
+npx prisma migrate dev --name add_subtitle_to_notes
+```
 
-You rock 🪨
+Then, copy the migration file path from the new migration folder and run `turso db shell`:
+
+```
+turso db shell epic-stack-example < prisma/migrations/20240402084116_add_subtitle_to_notes/migration.sql
+```

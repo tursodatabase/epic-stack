@@ -92,6 +92,8 @@ export const test = base.extend<{
 				.addCookies([{ ...cookieConfig, domain: 'localhost' }])
 			return user
 		})
+		// We sleep for a bit to avoid Prisma errors when running too many consecutive tests
+		await new Promise(resolve => setTimeout(resolve, 500))
 		await prisma.user.deleteMany({ where: { id: userId } })
 	},
 })
