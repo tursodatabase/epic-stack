@@ -106,6 +106,9 @@ jobs:
       - name: 🛠 Setup Database
         run: npx prisma migrate deploy
 
+      - name: 🛠 Run first database migration
+        run: cat prisma/migrations/20230914194400_init/migration.sql | sqlite3 ./data.db 
+
       - name: 🏦 Cache Database
         id: db-cache
         uses: actions/cache@v3
