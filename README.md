@@ -5,31 +5,29 @@
 
 This is an example of how to integrate [Turso](https://turso.tech/) database with the Epic Stack.
 
-## Create a Turso Database
-
-Create a database called `epic-stack-example`:
-
-```
-turso db create epic-stack-example
-```
-
 ## Set Environment Variables
-You need to add the database url and access token as environment variables:
+You need to add the database URL and access token as environment variables:
 
 ```
 TURSO_DATABASE_URL=
 TURSO_AUTH_TOKEN=
 ```
 
-You can get both on the [web app](https://turso.tech/app/databases) or using the [Turso CLI](https://docs.turso.tech/cli/introduction).
+You can get both values on the [Turso web app](https://turso.tech/app/databases) or using the [Turso CLI](https://docs.turso.tech/cli/introduction).
 
-To get the URL of your database using the CLI, run the command below and set the result to `TURSO_DATABASE_URL`:
+If you decided to use the CLI, you can create a database named `epic-stack-example` by running the following command:
+
+```
+turso db create epic-stack-example
+```
+
+To get the URL of your database, run the command below and set its result to `TURSO_DATABASE_URL`:
 
 ```
 turso db show epic-stack-example --url
 ```
 
-In the same way, get a database token and set its value to `TURSO_AUTH_TOKEN` by running the command below:
+In the same way, to get a database token, run the command below and set its result to  `TURSO_AUTH_TOKEN`:
 
 ```
 turso db tokens create epic-stack-example
